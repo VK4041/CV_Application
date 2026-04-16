@@ -1,2 +1,1 @@
-# CV_Application
-CV Application project made using React
+CV Application project made using Vite Template and React

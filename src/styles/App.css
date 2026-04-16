@@ -1,0 +1,26 @@
+html,
+body {
+  min-height: 100vh;
+  margin: 0;
+}
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+main {
+  flex: 1;
+}
+#root {
+  --header-footer-col: rgb(207, 207, 255);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.flex {
+  display: flex;
+}
+.flex-col {
+  flex-direction: column;
+}
