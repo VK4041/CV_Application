@@ -1,12 +1,28 @@
 export default function CV({ details }) {
-  if (Object.keys(details).length !== 0) {
-    //Non-empty object means some data was entered
+  function isEmptyInput(input) {
+    return input === "" || input === undefined;
   }
   return (
-    <div className="cv-container flex flex-col gap-2 bg-[#f2f2f2] p-2 border-1 rounded-s">
-      <p className="font-serif font-extrabold text-2xl">
-        {details.firstname} {details.surname}
-      </p>
+    <div className="cv-container flex flex-col bg-[#f2f2f2] px-4 py-8 border-1 font-sans">
+      <header className="text-center flex flex-col gap-2">
+        <p className="name font-extrabold text-2xl font-serif">
+          {details.firstname} {details.surname}
+        </p>
+        <p className="location">
+          {details.city}, <span className="uppercase">{details.state}</span> |{" "}
+          <span className="phone">{details.phone}</span> |{" "}
+          <span className="email">{details.email}</span>
+        </p>
+      </header>
+      <hr />
+      {!isEmptyInput(details.summary) && (
+        <section className="summary">
+          <p className="font-bold">PROFESSIONAL SUMMARY</p>
+          <p>{details.summary}</p>
+          <hr />
+        </section>
+      )}
+      {/* next section here */}
     </div>
   );
 }

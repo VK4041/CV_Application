@@ -9,12 +9,13 @@ export default function Main() {
   function editDetails(event) {
     setDetails({ ...details, [event.target.name]: event.target.value });
   }
-
+  function isEmptyObject(info) {
+    return Object.keys(info).length === 0;
+  }
   return (
     <div className="flex-1 px-[25%] py-4 flex flex-col gap-8">
       <Form handleChange={editDetails} />
-      <hr />
-      <CV details={details} />
+      {!isEmptyObject(details) && <CV details={details} />}
     </div>
   );
 }

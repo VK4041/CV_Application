@@ -5,3 +5,10 @@
 .input-row > * {
   flex: 1;
 }
+input,
+textarea {
+  @apply hover:bg-amber-100;
+}
+hr {
+  margin: 2rem 0;
+}
