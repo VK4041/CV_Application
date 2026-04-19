@@ -1,0 +1,7 @@
+@reference './App.css';
+.input-row {
+  @apply flex gap-3;
+}
+.input-row > * {
+  flex: 1;
+}

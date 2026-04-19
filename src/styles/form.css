@@ -1,4 +1,0 @@
-@reference "./App.css";
-.input {
-  @apply border-1 border-gray-500 rounded-s px-2 py-1;
-}
