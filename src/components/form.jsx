@@ -23,7 +23,15 @@ export default function Form({ handleChange }) {
         <label htmlFor="summary">Professional Summary</label>
         <textarea name="summary" id="summary" maxLength={400} />
       </div>
-      {/* next section here */}
+      <div className="input-row">
+        <label htmlFor="skills">Skills</label>
+        <textarea
+          name="skills"
+          id="skills"
+          placeholder="Enter skills separated by a comma"
+          maxLength={400}
+        ></textarea>
+      </div>
     </form>
   );
 }
