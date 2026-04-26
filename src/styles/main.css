@@ -15,3 +15,7 @@ hr {
 section {
   margin-top: 2rem;
 }
+label {
+  @apply font-medium;
+}
+

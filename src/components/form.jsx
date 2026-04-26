@@ -1,4 +1,5 @@
-export default function Form({ handleChange }) {
+import { ExperienceInput } from "./experience.jsx";
+export default function Form({ handleChange, experiences, addExp, handleArray }) {
   return (
     <form className="flex flex-col gap-2" onChange={handleChange}>
       <div className="input-row">
@@ -13,7 +14,7 @@ export default function Form({ handleChange }) {
       </div>
       <div className="input-row">
         <label htmlFor="phone">Phone</label>
-        <input type="tel" name="phone" placeholder="Phone" />
+        <input type="tel" name="phone" placeholder="Phone" maxLength={10} />
       </div>
       <div className="input-row">
         <label htmlFor="email">Email</label>
@@ -32,6 +33,16 @@ export default function Form({ handleChange }) {
           maxLength={400}
         ></textarea>
       </div>
+      {/* experience section here */}
+      <div className="input-row flex-col">
+        <label htmlFor="experience">Experience</label>
+        {experiences.map(exp => (
+          <ExperienceInput exp={exp} key={exp.id} handleArray={handleArray} />
+        ))}
+        <button onClick={addExp} type='button' className='bg-blue-400 w-max p-2 rounded-2xl'>Add new experience</button>
+      </div>
+      {/* education here */}
+      {/* end for now */}
     </form>
   );
 }
