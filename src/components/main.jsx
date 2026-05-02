@@ -42,9 +42,22 @@ export default function Main() {
   function isEmpty(details) {
     return !details.firstname || details.firstname.trim() === "";
   }
+  function deleteArrayElem(item, type) {
+    if (type === 'experience') {
+      //deleting the exp state element
+      console.log(`Deleting ${item.cname}`)
+      setDetails({
+        ...details, experiences:
+          details.experiences.filter(exp => item.id !== exp.id)
+      })
+    }
+    else {
+      //deleting the education state element
+    }
+  }
   return (
     <div className="flex-1 px-[25%] py-4 flex flex-col gap-8">
-      <Form handleChange={updateDetails} experiences={details.experiences} addExp={addExperience} handleArray={handleArray} />
+      <Form handleChange={updateDetails} experiences={details.experiences} addExp={addExperience} deleter={deleteArrayElem} handleArray={handleArray} />
       {!isEmpty(details) && <CV details={details} />}
     </div>
   );

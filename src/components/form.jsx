@@ -1,5 +1,5 @@
 import { ExperienceInput } from "./experience.jsx";
-export default function Form({ handleChange, experiences, addExp, handleArray }) {
+export default function Form({ handleChange, experiences, addExp, handleArray, deleter }) {
   return (
     <form className="flex flex-col gap-2" onChange={handleChange}>
       <div className="input-row">
@@ -37,7 +37,7 @@ export default function Form({ handleChange, experiences, addExp, handleArray })
       <div className="input-row flex-col">
         <label htmlFor="experience">Experience</label>
         {experiences.map(exp => (
-          <ExperienceInput exp={exp} key={exp.id} handleArray={handleArray} />
+          <ExperienceInput exp={exp} key={exp.id} handleArray={handleArray} deleter={deleter} />
         ))}
         <button onClick={addExp} type='button' className='bg-blue-400 w-max p-2 rounded-2xl'>Add new experience</button>
       </div>

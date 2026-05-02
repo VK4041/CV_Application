@@ -1,6 +1,7 @@
-export function ExperienceInput({ exp, handleArray }) {
+export function ExperienceInput({ exp, handleArray, deleter }) {
   return (
     <>
+      <hr />
       <div className="flex">
         <input
           type="text"
@@ -22,6 +23,15 @@ export function ExperienceInput({ exp, handleArray }) {
             handleArray(exp.id, event.target.name, event.target.value, 'experience')
           }}
         />
+        <button className="rounded-2xl p-2 text-m hover:bg-red-600 hover:text-white"
+          type='button'
+          onClick={(event) => {
+            event.stopPropagation();
+            deleter(exp, 'experience')
+          }}
+        >
+          <i className="fa-regular fa-trash-can"></i>
+        </button>
       </div>
       <div className="flex">
         <input
