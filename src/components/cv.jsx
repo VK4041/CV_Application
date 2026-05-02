@@ -1,4 +1,5 @@
 import { ExperienceGenerator } from "./experience.jsx";
+import { EducationGenerator } from "./education.jsx"
 export default function CV({ details }) {
   function isEmptyInput(input) {
     return input === "" || input === undefined;
@@ -13,8 +14,13 @@ export default function CV({ details }) {
     skills = Array.from(new Set(skills));
     return skills;
   }
+  function getFormattedDate(dateStr) {
+    if (!dateStr) return null
+    const date = new Date(dateStr)
+    return date.toLocaleString('default', { month: 'short' }) + ' ' + date.toLocaleString('default', { year: 'numeric' })
+  }
   return (
-    <div className="cv-container flex flex-col bg-[#f2f2f2] px-4 py-8 border-1 font-sans">
+    <div className="cv-container flex flex-col bg-[#f2f2f2] px-4 py-8 border font-sans">
       <header className="text-center flex flex-col gap-2 mb-4">
         <p className="name font-extrabold text-2xl font-serif capitalize">
           {details.firstname} {details.surname}
@@ -25,10 +31,10 @@ export default function CV({ details }) {
             <span className="uppercase">, {details.state}</span>
           )}
           {!isEmptyInput(details.phone) && (
-            <span className="phone"> | {details.phone}</span>
+            <span className="phone"> · {details.phone}</span>
           )}
           {!isEmptyInput(details.email) && (
-            <span className="email"> | {details.email}</span>
+            <span className="email"> · {details.email}</span>
           )}
         </p>
       </header>
@@ -61,11 +67,30 @@ export default function CV({ details }) {
           <p className="font-bold uppercase">Experience</p>
           <hr />
           <div className="flex flex-col gap-2">
-            {details.experiences.map(exp => <ExperienceGenerator key={exp.id} exp={exp} isEmpty={isEmptyInput} />)}
+            {details.experiences.map(exp =>
+              <ExperienceGenerator
+                key={exp.id}
+                exp={exp}
+                isEmpty={isEmptyInput}
+                dateFormatter={getFormattedDate} />)}
           </div>
         </section>
       )}
       {/* education here */}
+      {!isEmptyArray(details.education) && (
+        <section>
+          <p className="font-bold uppercase">Education</p>
+          <hr />
+          <div className="flex flex-col gap-2">
+            {details.education.map(edu =>
+              <EducationGenerator
+                key={edu.id}
+                edu={edu}
+                isEmpty={isEmptyInput}
+                dateFormatter={getFormattedDate} />)}
+          </div>
+        </section>
+      )}
       {/* end for now */}
     </div>
   );

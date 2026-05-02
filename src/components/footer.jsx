@@ -1,4 +1,3 @@
-import "../styles/footer.css";
 export default function Footer() {
   return (
     <footer className="footer flex flex-col items-center py-2 gap-2">

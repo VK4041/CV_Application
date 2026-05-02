@@ -1,7 +1,6 @@
-export function ExperienceInput({ exp, handleArray, deleter }) {
+export function ExperienceInput({ exp, updater, deleter }) {
   return (
-    <>
-      <hr />
+    <div className="input-row flex-col bg-blue-50 p-4 rounded-xl">
       <div className="flex">
         <input
           type="text"
@@ -10,7 +9,7 @@ export function ExperienceInput({ exp, handleArray, deleter }) {
           name="cname"
           onChange={(event) => {
             event.stopPropagation();
-            handleArray(exp.id, event.target.name, event.target.value, 'experience')
+            updater(exp.id, event.target.name, event.target.value, 'experiences')
           }}
         />
         <input
@@ -20,14 +19,13 @@ export function ExperienceInput({ exp, handleArray, deleter }) {
           name="jtitle"
           onChange={(event) => {
             event.stopPropagation();
-            handleArray(exp.id, event.target.name, event.target.value, 'experience')
+            updater(exp.id, event.target.name, event.target.value, 'experiences')
           }}
         />
         <button className="rounded-2xl p-2 text-m hover:bg-red-600 hover:text-white"
           type='button'
-          onClick={(event) => {
-            event.stopPropagation();
-            deleter(exp, 'experience')
+          onClick={() => {
+            deleter(exp, 'experiences')
           }}
         >
           <i className="fa-regular fa-trash-can"></i>
@@ -41,7 +39,7 @@ export function ExperienceInput({ exp, handleArray, deleter }) {
           name="jcity"
           onChange={(event) => {
             event.stopPropagation();
-            handleArray(exp.id, event.target.name, event.target.value, 'experience')
+            updater(exp.id, event.target.name, event.target.value, 'experiences')
           }}
         />
         <input
@@ -51,7 +49,7 @@ export function ExperienceInput({ exp, handleArray, deleter }) {
           name="jstate"
           onChange={(event) => {
             event.stopPropagation();
-            handleArray(exp.id, event.target.name, event.target.value, 'experience')
+            updater(exp.id, event.target.name, event.target.value, 'experiences')
           }}
         />
       </div>
@@ -60,10 +58,9 @@ export function ExperienceInput({ exp, handleArray, deleter }) {
         type="month"
         name="jfrom"
         className="w-max"
-        placeholder="From"
         onChange={(event) => {
           event.stopPropagation();
-          handleArray(exp.id, event.target.name, event.target.value, 'experience')
+          updater(exp.id, event.target.name, event.target.value, 'experiences')
         }} />
       <label htmlFor="jto">To</label>
       <input
@@ -72,20 +69,20 @@ export function ExperienceInput({ exp, handleArray, deleter }) {
         name="jto"
         onChange={(event) => {
           event.stopPropagation();
-          handleArray(exp.id, event.target.name, event.target.value, 'experience')
+          updater(exp.id, event.target.name, event.target.value, 'experiences')
         }} />
       <textarea
         name="jdesc"
         placeholder="Enter description separated by newline"
         onChange={(event) => {
           event.stopPropagation();
-          handleArray(exp.id, event.target.name, event.target.value, 'experience')
+          updater(exp.id, event.target.name, event.target.value, 'experiences')
         }}
       />
-    </>
+    </div >
   );
 }
-export function ExperienceGenerator({ exp, isEmpty }) {
+export function ExperienceGenerator({ exp, isEmpty, dateFormatter }) {
   return (
     <div>
       <p className="capitalize">
@@ -97,14 +94,14 @@ export function ExperienceGenerator({ exp, isEmpty }) {
       <p className='capitalize italic'>
         <span>{exp.jcity}</span>
         {!isEmpty(exp.jstate) && (
-          <span className='uppercase'>
+          <span>
             , {exp.jstate}
           </span>
         )}
         {!isEmpty(exp.jfrom) && (
           <span>
             {' · '}
-            {getFormattedDate(exp.jfrom)} - {isEmpty(exp.jto) ? "Present" : getFormattedDate(exp.jto)}
+            {dateFormatter(exp.jfrom)} - {isEmpty(exp.jto) ? "Present" : dateFormatter(exp.jto)}
           </span>
         )}
       </p>
@@ -114,11 +111,7 @@ export function ExperienceGenerator({ exp, isEmpty }) {
     </div >
   );
 }
-function getFormattedDate(dateStr) {
-  if (!dateStr) return null
-  const date = new Date(dateStr)
-  return date.toLocaleString('default', { month: 'long' }) + ' ' + date.toLocaleString('default', { year: 'numeric' })
-}
+
 function generateDescBullets(desc) {
   let lines = desc.split('\n');
   lines = lines.filter(line => line.trim() !== '');
@@ -129,7 +122,7 @@ function generateDescBullets(desc) {
       .toUpperCase()
       .concat(line.slice(1));
     line = (line.slice(-1) !== '.') ? line.concat('.') : line;
-    return '* ' + line;
+    return '• ' + line;
   })
   return lines;
 }

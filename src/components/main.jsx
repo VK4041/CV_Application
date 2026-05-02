@@ -13,51 +13,42 @@ export default function Main() {
     //logic for flat fields
     setDetails({ ...details, [event.target.name]: event.target.value });
   }
-  function addExperience() {
+  function addElem(type) {
     setDetails({
-      ...details, experiences: [...details.experiences, { id: crypto.randomUUID() }]
+      ...details, [type]: [...details[type], { id: crypto.randomUUID() }]
     })
   }
-  function handleArray(id, field, value, type) {
-    //Experience array
-    if (type === 'experience') {
-      //find the exp object to update
-      setDetails({
-        ...details, experiences:
-          details.experiences.map(exp => {
-            if (exp.id === id) {
-              return { ...exp, [field]: value }
-            }
-            else {
-              return exp
-            }
-          })
-      })
-    }
-    //Education array
-    else {
-      //same for education array here
-    }
+  function updateArray(id, field, value, type) {
+    setDetails({
+      ...details, [type]:
+        details[type].map(elem => {
+          if (elem.id === id) {
+            return { ...elem, [field]: value }
+          }
+          else {
+            return elem
+          }
+        })
+    })
   }
   function isEmpty(details) {
     return !details.firstname || details.firstname.trim() === "";
   }
-  function deleteArrayElem(item, type) {
-    if (type === 'experience') {
-      //deleting the exp state element
-      console.log(`Deleting ${item.cname}`)
-      setDetails({
-        ...details, experiences:
-          details.experiences.filter(exp => item.id !== exp.id)
-      })
-    }
-    else {
-      //deleting the education state element
-    }
+  function deleteArray(item, type) {
+    setDetails({
+      ...details, [type]:
+        details[type].filter(elem => item.id !== elem.id)
+    })
   }
   return (
     <div className="flex-1 px-[25%] py-4 flex flex-col gap-8">
-      <Form handleChange={updateDetails} experiences={details.experiences} addExp={addExperience} deleter={deleteArrayElem} handleArray={handleArray} />
+      <Form
+        handleChange={updateDetails}
+        education={details.education}
+        experiences={details.experiences}
+        addElem={addElem}
+        deleter={deleteArray}
+        updater={updateArray} />
       {!isEmpty(details) && <CV details={details} />}
     </div>
   );

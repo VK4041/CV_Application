@@ -1,5 +1,6 @@
 import { ExperienceInput } from "./experience.jsx";
-export default function Form({ handleChange, experiences, addExp, handleArray, deleter }) {
+import { EducationInput } from './education.jsx'
+export default function Form({ handleChange, experiences, education, addElem, updater, deleter }) {
   return (
     <form className="flex flex-col gap-2" onChange={handleChange}>
       <div className="input-row">
@@ -34,14 +35,25 @@ export default function Form({ handleChange, experiences, addExp, handleArray, d
         ></textarea>
       </div>
       {/* experience section here */}
-      <div className="input-row flex-col">
+      <div className='input-row flex-col'>
         <label htmlFor="experience">Experience</label>
         {experiences.map(exp => (
-          <ExperienceInput exp={exp} key={exp.id} handleArray={handleArray} deleter={deleter} />
+          <ExperienceInput exp={exp} key={exp.id} updater={updater} deleter={deleter} />
         ))}
-        <button onClick={addExp} type='button' className='bg-blue-400 w-max p-2 rounded-2xl'>Add new experience</button>
+        <button onClick={() => {
+          addElem('experiences')
+        }} type='button' className='addbtn'>Add new experience</button>
       </div>
       {/* education here */}
+      <div className="input-row flex-col">
+        <label htmlFor="education">Education</label>
+        {education.map(edu => (
+          <EducationInput edu={edu} key={edu.id} updater={updater} deleter={deleter} />
+        ))}
+        <button onClick={() => {
+          addElem('education')
+        }} type='button' className='addbtn'>Add new education</button>
+      </div>
       {/* end for now */}
     </form>
   );
